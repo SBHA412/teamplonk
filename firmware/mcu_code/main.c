@@ -1,9 +1,10 @@
-#include <driverlib.h>
+//#include <driverlib.h>
 #ifndef DRIVERLIB_H
     #include "msp430fr2355.h"
     #include <stdint.h>
 #endif
 
+#include "i2c.h"
 #include "spi.h"
 
 void initClockTo16MHz() {
@@ -26,15 +27,15 @@ void initClockTo16MHz() {
 }
 
 int main(void) {
-    // Stop watchdog timer
-    WDT_A_hold(WDT_A_BASE);
+    // // Stop watchdog timer
+    // WDT_A_hold(WDT_A_BASE);
 
     initClockTo16MHz(); // Sets MCLK=SMCLK -> 16MHz
     setupSPI();
     
     // Disable the GPIO power-on default high-impedance mode
     // to activate previously configured port settings
-    PMM_unlockLPM5();
+    PM5CTL0 &= ~LOCKLPM5;
 
     while(1)
     {
