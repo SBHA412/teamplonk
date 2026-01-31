@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "PSAT_Sensor_Board",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "PSAT_Sensor_Board",
+                "resourceId": "/PSAT_Sensor_Board"
+            }
+        }
+    ]
+}

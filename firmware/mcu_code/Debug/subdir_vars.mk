@@ -10,38 +10,26 @@ CMD_SRCS += \
 
 C_SRCS += \
 ../i2c.c \
-../imu.c \
-../main.c \
-../spi.c 
+../main.c 
 
 C_DEPS += \
 ./i2c.d \
-./imu.d \
-./main.d \
-./spi.d 
+./main.d 
 
 OBJS += \
 ./i2c.obj \
-./imu.obj \
-./main.obj \
-./spi.obj 
+./main.obj 
 
 OBJS__QUOTED += \
 "i2c.obj" \
-"imu.obj" \
-"main.obj" \
-"spi.obj" 
+"main.obj" 
 
 C_DEPS__QUOTED += \
 "i2c.d" \
-"imu.d" \
-"main.d" \
-"spi.d" 
+"main.d" 
 
 C_SRCS__QUOTED += \
 "../i2c.c" \
-"../imu.c" \
-"../main.c" \
-"../spi.c" 
+"../main.c" 
 
 

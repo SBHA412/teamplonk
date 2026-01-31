@@ -1,7 +1,5 @@
 "./i2c.obj"
-"./imu.obj"
 "./main.obj"
-"./spi.obj"
 "./driverlib/MSP430FR2xx_4xx/adc.obj"
 "./driverlib/MSP430FR2xx_4xx/crc.obj"
 "./driverlib/MSP430FR2xx_4xx/cs.obj"
