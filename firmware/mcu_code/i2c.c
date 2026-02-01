@@ -1,24 +1,26 @@
 #include "i2c.h"
 
+#include "helpers.h"
+
 
 /* Used to track the state of the software state machine*/
 I2C_Mode MasterMode = IDLE_MODE;
 
-/* The Register Address/Command to use*/
-uint8_t TransmitRegAddr = 0;
+/* Slave register address (Used in ISR) */
+uint8_t transmitRegAddr = 0;
 
-/* ReceiveBuffer: Buffer used to receive data in the ISR
+/* receiveBuffer: Buffer used to receive data in the ISR
  * RXByteCtr: Number of bytes left to receive
- * ReceiveIndex: The index of the next byte to be received in ReceiveBuffer
- * TransmitBuffer: Buffer used to transmit data in the ISR
+ * ReceiveIndex: The index of the next byte to be received in receiveBuffer
+ * transmitBuffer: Buffer used to transmit data in the ISR
  * TXByteCtr: Number of bytes left to transfer
- * TransmitIndex: The index of the next byte to be transmitted in TransmitBuffer
+ * TransmitIndex: The index of the next byte to be transmitted in transmitBuffer
  * */
 
-uint8_t ReceiveBuffer[MAX_BUFFER_SIZE];
+uint8_t receiveBuffer[MAX_BUFFER_SIZE];
 uint8_t ReceiveIndex = 0;
 
-uint8_t TransmitBuffer[MAX_BUFFER_SIZE];
+uint8_t transmitBuffer[MAX_BUFFER_SIZE];
 uint8_t TransmitIndex = 0;
 
 uint8_t RXByteCtr = 0;
@@ -26,13 +28,21 @@ uint8_t TXByteCtr = 0;
 
 
 
+void I2C_init() {
+    UCB0CTLW0 = UCSWRST;                      // Enable SW reset
+    UCB0CTLW0 |= UCMODE_3 | UCMST | UCSSEL__SMCLK | UCSYNC; // I2C master mode, SMCLK
+    UCB0BRW = 160;                            // fSCL = SMCLK/160 = ~100kHz
+    UCB0CTLW0 &= ~UCSWRST;                    // Clear SW reset, resume operation
+    UCB0IE |= UCNACKIE;
+}
+
+
 /* I2C Write and Read Functions */
 
-I2C_Mode I2C_Master_ReadReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t count)
-{
+I2C_Mode I2C_ReadReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint8_t count) {
     /* Initialize state machine */
     MasterMode = TX_REG_ADDRESS_MODE;
-    TransmitRegAddr = reg_addr;
+    transmitRegAddr = reg_addr;
     RXByteCtr = count;
     TXByteCtr = 0;
     ReceiveIndex = 0;
@@ -47,19 +57,19 @@ I2C_Mode I2C_Master_ReadReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t count)
     UCB0CTLW0 |= UCTR + UCTXSTT;             // I2C TX, start condition
     __bis_SR_register(LPM0_bits + GIE);              // Enter LPM0 w/ interrupts
 
+    copyArray(receiveBuffer, reg_data, count);
+
     return MasterMode;
 
 }
 
-
-I2C_Mode I2C_Master_WriteReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint8_t count)
-{
+I2C_Mode I2C_WriteReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint8_t count) {
     /* Initialize state machine */
     MasterMode = TX_REG_ADDRESS_MODE;
-    TransmitRegAddr = reg_addr;
+    transmitRegAddr = reg_addr;
 
-    //Copy register data to TransmitBuffer
-    CopyArray(reg_data, TransmitBuffer, count);
+    //Copy register data to transmitBuffer
+    copyArray(reg_data, transmitBuffer, count);
 
     TXByteCtr = count;
     RXByteCtr = 0;
@@ -78,14 +88,6 @@ I2C_Mode I2C_Master_WriteReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_da
     return MasterMode;
 }
 
-void CopyArray(uint8_t *source, uint8_t *dest, uint8_t count)
-{
-    uint8_t copyIndex = 0;
-    for (copyIndex = 0; copyIndex < count; copyIndex++)
-    {
-        dest[copyIndex] = source[copyIndex];
-    }
-}
 
 
 //******************************************************************************
@@ -122,7 +124,7 @@ void __attribute__ ((interrupt(USCI_B0_VECTOR))) USCI_B0_ISR (void)
         rx_val = UCB0RXBUF;
         if (RXByteCtr)
         {
-          ReceiveBuffer[ReceiveIndex++] = rx_val;
+          receiveBuffer[ReceiveIndex++] = rx_val;
           RXByteCtr--;
         }
 
@@ -142,7 +144,7 @@ void __attribute__ ((interrupt(USCI_B0_VECTOR))) USCI_B0_ISR (void)
         switch (MasterMode)
         {
           case TX_REG_ADDRESS_MODE:
-              UCB0TXBUF = TransmitRegAddr;
+              UCB0TXBUF = transmitRegAddr;
               if (RXByteCtr) {
                   MasterMode = SWITCH_TO_RX_MODE;   // Need to start receiving now
               } else {
@@ -167,7 +169,7 @@ void __attribute__ ((interrupt(USCI_B0_VECTOR))) USCI_B0_ISR (void)
           case TX_DATA_MODE:
               if (TXByteCtr)
               {
-                  UCB0TXBUF = TransmitBuffer[TransmitIndex++];
+                  UCB0TXBUF = transmitBuffer[TransmitIndex++];
                   TXByteCtr--;
               }
               else

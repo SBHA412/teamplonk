@@ -27,8 +27,6 @@
 
 #include <msp430fr2355.h> 
 #include <stdint.h>
-#include <stdbool.h>
-#include <stdio.h>
 
 #include "i2c.h"
 
@@ -52,7 +50,7 @@
 #define BYTE_COUNT      1
 
 uint8_t receiveArray[BYTE_COUNT] = {0};
-uint8_t transmitArray[BYTE_COUNT] = {11};
+uint8_t transmitArray[BYTE_COUNT] = {15};
 
 
 //******************************************************************************
@@ -60,10 +58,10 @@ uint8_t transmitArray[BYTE_COUNT] = {11};
 //******************************************************************************
 
 
-void initGPIO()
+void GPIO_init()
 {
-    // LED_DIR |= LED_PIN;
-    // LED_OUT |= LED_PIN;
+    LED_DIR |= LED_PIN;
+    LED_OUT |= LED_PIN;
         
     // I2C pins
     P1SEL0 |= BIT2 | BIT3;
@@ -74,8 +72,7 @@ void initGPIO()
     PM5CTL0 &= ~LOCKLPM5;
 }
 
-void initClockTo16MHz()
-{
+void initClockTo16MHz() {
     // Configure one FRAM waitstate as required by the device datasheet for MCLK
     // operation beyond 8MHz _before_ configuring the clock system.
     FRCTL0 = FRCTLPW | NWAITS_1;
@@ -92,16 +89,6 @@ void initClockTo16MHz()
     while(CSCTL7 & (FLLUNLOCK0 | FLLUNLOCK1));         // FLL locked
 }
 
-void initI2C()
-{
-    UCB0CTLW0 = UCSWRST;                      // Enable SW reset
-    UCB0CTLW0 |= UCMODE_3 | UCMST | UCSSEL__SMCLK | UCSYNC; // I2C master mode, SMCLK
-    UCB0BRW = 160;                            // fSCL = SMCLK/160 = ~100kHz
-    UCB0I2CSA = SLAVE_ADDR;                   // Slave Address
-    UCB0CTLW0 &= ~UCSWRST;                    // Clear SW reset, resume operation
-    UCB0IE |= UCNACKIE;
-}
-
 
 //******************************************************************************
 // Main ************************************************************************
@@ -111,13 +98,12 @@ void initI2C()
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
     initClockTo16MHz();
-    initGPIO();
-    initI2C();
+    GPIO_init();
+    I2C_init();
 
-    I2C_Master_ReadReg(SLAVE_ADDR, REG_ADDR, BYTE_COUNT);
-    CopyArray(ReceiveBuffer, receiveArray, BYTE_COUNT);
+    I2C_ReadReg(SLAVE_ADDR, REG_ADDR, receiveArray, BYTE_COUNT);
 
-    __bis_SR_register(LPM0_bits + GIE);
+    __bis_SR_register(LPM0_bits + GIE); // LPM0 disables CPU, delete for normal operation
 	
     while(1);
 }
