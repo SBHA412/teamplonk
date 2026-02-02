@@ -39,7 +39,7 @@ void I2C_init() {
 
 /* I2C Write and Read Functions */
 
-I2C_Mode I2C_ReadReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint8_t count) {
+I2C_Mode I2C_readReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint8_t count) {
     /* Initialize state machine */
     MasterMode = TX_REG_ADDRESS_MODE;
     transmitRegAddr = reg_addr;
@@ -60,10 +60,9 @@ I2C_Mode I2C_ReadReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint
     copyArray(receiveBuffer, reg_data, count);
 
     return MasterMode;
-
 }
 
-I2C_Mode I2C_WriteReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint8_t count) {
+I2C_Mode I2C_writeReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint8_t count) {
     /* Initialize state machine */
     MasterMode = TX_REG_ADDRESS_MODE;
     transmitRegAddr = reg_addr;
@@ -110,7 +109,8 @@ void __attribute__ ((interrupt(USCI_B0_VECTOR))) USCI_B0_ISR (void)
     case USCI_NONE:          break;         // Vector 0: No interrupts
     case USCI_I2C_UCALIFG:   break;         // Vector 2: ALIFG
     case USCI_I2C_UCNACKIFG:                // Vector 4: NACKIFG
-      break;
+        MasterMode = NACK_MODE;
+        break;
     case USCI_I2C_UCSTTIFG:  break;         // Vector 6: STTIFG
     case USCI_I2C_UCSTPIFG:  break;         // Vector 8: STPIFG
     case USCI_I2C_UCRXIFG3:  break;         // Vector 10: RXIFG3
@@ -143,50 +143,50 @@ void __attribute__ ((interrupt(USCI_B0_VECTOR))) USCI_B0_ISR (void)
     case USCI_I2C_UCTXIFG0:                 // Vector 24: TXIFG0
         switch (MasterMode)
         {
-          case TX_REG_ADDRESS_MODE:
-              UCB0TXBUF = transmitRegAddr;
-              if (RXByteCtr) {
-                  MasterMode = SWITCH_TO_RX_MODE;   // Need to start receiving now
-              } else {
-                  MasterMode = TX_DATA_MODE;        // Continue to transmision with the data in Transmit Buffer
-              }
-              break;
+            case TX_REG_ADDRESS_MODE:
+                UCB0TXBUF = transmitRegAddr;
+                if (RXByteCtr) {
+                    MasterMode = SWITCH_TO_RX_MODE;   // Need to start receiving now
+                } else {
+                    MasterMode = TX_DATA_MODE;        // Continue to transmision with the data in Transmit Buffer
+                }
+                break;
 
-          case SWITCH_TO_RX_MODE:
-              UCB0IE |= UCRXIE;              // Enable RX interrupt
-              UCB0IE &= ~UCTXIE;             // Disable TX interrupt
-              UCB0CTLW0 &= ~UCTR;            // Switch to receiver
-              MasterMode = RX_DATA_MODE;    // State state is to receive data
-              UCB0CTLW0 |= UCTXSTT;          // Send repeated start
-              if (RXByteCtr == 1)
-              {
-                  //Must send stop since this is the N-1 byte
-                  while((UCB0CTLW0 & UCTXSTT));
-                  UCB0CTLW0 |= UCTXSTP;      // Send stop condition
-              }
-              break;
+            case SWITCH_TO_RX_MODE:
+                UCB0IE |= UCRXIE;              // Enable RX interrupt
+                UCB0IE &= ~UCTXIE;             // Disable TX interrupt
+                UCB0CTLW0 &= ~UCTR;            // Switch to receiver
+                MasterMode = RX_DATA_MODE;    // State state is to receive data
+                UCB0CTLW0 |= UCTXSTT;          // Send repeated start
+                if (RXByteCtr == 1)
+                {
+                    //Must send stop since this is the N-1 byte
+                    while((UCB0CTLW0 & UCTXSTT));
+                    UCB0CTLW0 |= UCTXSTP;      // Send stop condition
+                }
+                break;
 
-          case TX_DATA_MODE:
-              if (TXByteCtr)
-              {
-                  UCB0TXBUF = transmitBuffer[TransmitIndex++];
-                  TXByteCtr--;
-              }
-              else
-              {
-                  //Done with transmission
-                  UCB0CTLW0 |= UCTXSTP;     // Send stop condition
-                  MasterMode = IDLE_MODE;
-                  UCB0IE &= ~UCTXIE;                       // disable TX interrupt
-                  __bic_SR_register_on_exit(CPUOFF);      // Exit LPM0
-              }
-              break;
+            case TX_DATA_MODE:
+                if (TXByteCtr)
+                {
+                    UCB0TXBUF = transmitBuffer[TransmitIndex++];
+                    TXByteCtr--;
+                }
+                else
+                {
+                    //Done with transmission
+                    UCB0CTLW0 |= UCTXSTP;     // Send stop condition
+                    MasterMode = IDLE_MODE;
+                    UCB0IE &= ~UCTXIE;                       // disable TX interrupt
+                    __bic_SR_register_on_exit(CPUOFF);      // Exit LPM0
+                }
+                break;
 
-          default:
-              __no_operation();
-              break;
-        }
-        break;
-    default: break;
-  }
+            default:
+                __no_operation();
+                break;
+            }
+            break;
+        default: break;
+    }
 }

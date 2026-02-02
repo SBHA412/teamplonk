@@ -58,8 +58,7 @@ uint8_t transmitArray[BYTE_COUNT] = {15};
 //******************************************************************************
 
 
-void GPIO_init()
-{
+void GPIO_init() {
     LED_DIR |= LED_PIN;
     LED_OUT |= LED_PIN;
         
@@ -101,7 +100,7 @@ int main(void) {
     GPIO_init();
     I2C_init();
 
-    I2C_ReadReg(SLAVE_ADDR, REG_ADDR, receiveArray, BYTE_COUNT);
+    I2C_readReg(SLAVE_ADDR, REG_ADDR, receiveArray, BYTE_COUNT);
 
     __bis_SR_register(LPM0_bits + GIE); // LPM0 disables CPU, delete for normal operation
 	

@@ -9,26 +9,31 @@ CMD_SRCS += \
 ../lnk_msp430fr2355.cmd 
 
 C_SRCS += \
+../bmp.c \
 ../helpers.c \
 ../i2c.c \
 ../main.c 
 
 C_DEPS += \
+./bmp.d \
 ./helpers.d \
 ./i2c.d \
 ./main.d 
 
 OBJS += \
+./bmp.obj \
 ./helpers.obj \
 ./i2c.obj \
 ./main.obj 
 
 OBJS__QUOTED += \
+"bmp.obj" \
 "helpers.obj" \
 "i2c.obj" \
 "main.obj" 
 
 C_DEPS__QUOTED += \
+"bmp.d" \
 "helpers.d" \
 "i2c.d" \
 "main.d" 

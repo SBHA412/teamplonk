@@ -128,5 +128,10 @@
       "directory" : "C:/Users/kburd/Electronics/PSAT_Payload/Firmware/teamplonk/firmware/mcu_code/Debug",
       "command"   : "clang++ -I\"C:/ti/ccs2040/ccs/ccs_base/msp430/include\" -I\"C:/Users/kburd/Electronics/PSAT_Payload/Firmware/teamplonk/firmware/mcu_code\" -I\"C:/Users/kburd/Electronics/PSAT_Payload/Firmware/teamplonk/firmware/mcu_code/driverlib/MSP430FR2xx_4xx\" -I\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include\" -D__MSP430FR2355__ -D_FRWP_ENABLE -D_INFO_FRWP_ENABLE -xc",
       "file"      : "C:/Users/kburd/Electronics/PSAT_Payload/Firmware/teamplonk/firmware/mcu_code/helpers.c"
+   },
+   {
+      "directory" : "C:/Users/kburd/Electronics/PSAT_Payload/Firmware/teamplonk/firmware/mcu_code/Debug",
+      "command"   : "clang++ -I\"C:/ti/ccs2040/ccs/ccs_base/msp430/include\" -I\"C:/Users/kburd/Electronics/PSAT_Payload/Firmware/teamplonk/firmware/mcu_code\" -I\"C:/Users/kburd/Electronics/PSAT_Payload/Firmware/teamplonk/firmware/mcu_code/driverlib/MSP430FR2xx_4xx\" -I\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include\" -D__MSP430FR2355__ -D_FRWP_ENABLE -D_INFO_FRWP_ENABLE -xc",
+      "file"      : "C:/Users/kburd/Electronics/PSAT_Payload/Firmware/teamplonk/firmware/mcu_code/bmp.c"
    }
 ]

@@ -7,6 +7,11 @@
 #define MAX_BUFFER_SIZE     20
 
 
+typedef struct deviceStruct {
+    uint8_t addr;
+} Device;
+
+
 //******************************************************************************
 // General I2C State Machine ***************************************************
 //******************************************************************************
@@ -37,7 +42,7 @@ void I2C_init();
  * --- count ----> The length of data to read
  *           
  *  */
-I2C_Mode I2C_ReadReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint8_t count);
+I2C_Mode I2C_readReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint8_t count);
 
 /* For slave device with dev_addr, writes the data specified in *reg_data
  * into the register at reg_addr.
@@ -51,7 +56,7 @@ I2C_Mode I2C_ReadReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint
  * --- count -----> The length of *reg_data
  *           
  *  */
-I2C_Mode I2C_WriteReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint8_t count);
+I2C_Mode I2C_writeReg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint8_t count);
 
 
 #endif

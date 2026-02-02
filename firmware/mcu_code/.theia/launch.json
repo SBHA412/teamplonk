@@ -9,6 +9,28 @@
                 "name": "PSAT_Sensor_Board",
                 "resourceId": "/PSAT_Sensor_Board"
             }
+        },
+        {
+            "name": "PSAT_Sensor_Board (1)",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "PSAT_Sensor_Board",
+                "resourceId": "/PSAT_Sensor_Board/__ccs_3_compilerIncludes"
+            },
+            "connections": [
+                {
+                    "name": "TI MSP430 USB1",
+                    "cores": [
+                        {
+                            "name": "MSP430",
+                            "debuggerSettings": {
+                                "data": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n<PropertyValues/>\n"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
