@@ -4,11 +4,6 @@
 #include "i2c.h"
 
 
-const Device bmp = {
-    .addr = 0x76
-};
-
-
 /* BMP390 Base I2C Operations */
 
 I2C_Mode BMP_readReg(uint8_t reg_addr, uint8_t *reg_data);
@@ -33,7 +28,7 @@ uint8_t BMP_softReset();
 
 /* BMP390 Sampling */
 
-uint8_t BMP_getPressure(uint32_t *pressure);
+uint8_t BMP_getPressureRaw(uint32_t *raw);
 
 
 #endif

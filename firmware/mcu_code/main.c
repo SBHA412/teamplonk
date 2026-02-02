@@ -29,6 +29,7 @@
 #include <stdint.h>
 
 #include "i2c.h"
+#include "bmp.h"
 
 
 //******************************************************************************
@@ -47,10 +48,12 @@
 
 #define REG_ADDR        0x00
 
-#define BYTE_COUNT      1
+#define BYTE_COUNT      20
 
-uint8_t receiveArray[BYTE_COUNT] = {0};
-uint8_t transmitArray[BYTE_COUNT] = {15};
+uint32_t receiveArray[BYTE_COUNT] = {0};
+uint32_t *receiveData = receiveArray;
+
+volatile uint8_t sensorRead_start = 0;
 
 
 //******************************************************************************
@@ -69,6 +72,15 @@ void GPIO_init() {
     // Disable the GPIO power-on default high-impedance mode to activate
     // previously configured port settings
     PM5CTL0 &= ~LOCKLPM5;
+}
+
+void TIMER0_init() {
+    // Configure Timer0_B3
+    TB0CTL |= TBCLR;            // Clear timer config
+    TB0CCR0 = 0x7FFF;           // Count to (2^15 - 1)
+    TB0CCTL0 &= ~CCIFG;         // Clear capture/compare interrupt flag
+    TB0CCTL0 |= CCIE;           // Enable capture/compare interrupt request
+    TB0CTL |= TBSSEL_1 | MC_1;  // Clock from ACLK and begin timer
 }
 
 void initClockTo16MHz() {
@@ -97,12 +109,34 @@ void initClockTo16MHz() {
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
     initClockTo16MHz();
-    GPIO_init();
     I2C_init();
+    GPIO_init();
 
-    I2C_readReg(SLAVE_ADDR, REG_ADDR, receiveArray, BYTE_COUNT);
+    while(receiveData - receiveArray < 20) {
+        if(sensorRead_start) {
+            sensorRead_start = 0;
+            if (!BMP_enableForcedMode()) {
+                __bis_SR_register(LPM0_bits); // Wait until second interrupt trigger
+                BMP_getPressureRaw(receiveData);
+                receiveData++;
+            }
+            sensorRead_start = 0;
+        }
+    }
+}
 
-    __bis_SR_register(LPM0_bits + GIE); // LPM0 disables CPU, delete for normal operation
-	
-    while(1);
+
+#if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
+#pragma vector = TIMER0_B0_VECTOR
+__interrupt void TIMER0_B0_ISR(void)
+#elif defined(__GNUC__)
+void __attribute__ ((interrupt(TIMER0_B0_VECTOR))) TIMER0_B0_ISR (void)
+#else
+#error Compiler not supported!
+#endif
+{
+    sensorRead_start = 1;
+    TB0CCTL0 &= ~CCIFG;
+    __bic_SR_register_on_exit(CPUOFF);
+    
 }

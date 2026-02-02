@@ -224,6 +224,11 @@ typedef enum {
 } bmp390_frame_type;
 
 
+const Device bmp = {
+    .addr = 0x76
+};
+
+
 
 /* BMP390 Base I2C Operations */
 
@@ -288,11 +293,14 @@ uint8_t BMP_softReset() {
 
 /* BMP390 Sampling */
 
-uint8_t BMP_getPressure(uint32_t *pressure) {
-    uint8_t *buf = (uint8_t*) pressure;
+uint8_t BMP_getPressureRaw(uint32_t *raw) {
+    uint8_t buf[3];
 
     if (BMP_burstReadReg(DATA_0, buf, 3) == NACK_MODE) {
         return 1;   // Register read failed
     }
+
+    *raw = (uint32_t)buf[2] << 16 | (uint32_t)buf[1] << 8 | buf[0];
+    
     return 0;
 }
