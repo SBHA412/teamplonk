@@ -1,0 +1,4 @@
+Change Component Designator: OldDesignator=MISO NewDesignator=TP1
+Change Component Designator: OldDesignator=MOSI NewDesignator=TP2
+Added Pin To Net: NetName=GND Pin=J3-4
+Added Pin To Net: NetName=GND Pin=J4-4

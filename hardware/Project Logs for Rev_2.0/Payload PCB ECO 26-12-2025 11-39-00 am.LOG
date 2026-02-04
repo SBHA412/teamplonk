@@ -1,0 +1,19 @@
+Change Component Designator: OldDesignator=SCL NewDesignator=TP1
+Change Component Designator: OldDesignator=SDA NewDesignator=TP2
+Added Pin To Net: NetName=UCA0_TX/MOSI/JTAG_TDO Pin=J13-1
+Added Pin To Net: NetName=GND Pin=J13-3
+Added Pin To Net: NetName=UCA0_STE/JTAG_TCK Pin=J13-4
+Added Pin To Net: NetName=UCA0_RX/MISO/JTAG_TDI Pin=J13-5
+Added Pin To Net: NetName=UCA0_CLK/JTAG_TMS Pin=J13-6
+Added Pin To Net: NetName=JTAG_TEST/SBW_TCK Pin=J13-7
+Added Pin To Net: NetName=Reset/SBW_TDIO Pin=J13-8
+Added Pin To Net: NetName=Reset/SBW_TDIO Pin=J14-1
+Added Pin To Net: NetName=GND Pin=J14-3
+Added Pin To Net: NetName=JTAG_TEST/SBW_TCK Pin=J14-4
+Added Pin To Net: NetName=3V3 Pin=J13-2
+Added Pin To Net: NetName=3V3 Pin=J14-2
+Added Net: Name=3V3
+Added Member To Class: ClassName=Payload Member=Component J13 Headerless Pogo Holes 8-pin
+Added Member To Class: ClassName=Payload Member=Component J14 Headerless Pogo Holes 4-pin
+Added Member To Class: ClassName=Payload Member=Component TP1 Test Point
+Added Rule: Name=Schematic Supply Nets_4

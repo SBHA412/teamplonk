@@ -1,0 +1,17 @@
+Added Component: Designator=J11(MOLEX_0530470310)
+Add component (AddParameter): Name = "APSS Standard Part"; Value = "APSS Standard"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF Part No."; Value = "0530470310"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Type"; Value = "Through-hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Orientation"; Value = "Straight"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pins"; Value = "3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pitch"; Value = "1.25mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digikey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1 Part No."; Value = "WM1732-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 2"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 2 Part No."; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=J11-1
+Added Pin To Net: NetName=+3V3 Pin=J11-2
+Added Pin To Net: NetName=CAM_EN Pin=J11-3
+Added Pin To Net: NetName=CAM_EN Pin=U1-22
+Added Net: Name=CAM_EN
+Added Member To Class: ClassName=Payload Member=Component J11 0530470310

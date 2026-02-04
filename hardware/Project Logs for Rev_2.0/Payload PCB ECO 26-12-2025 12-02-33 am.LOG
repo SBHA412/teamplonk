@@ -1,0 +1,7 @@
+Added Component: Designator=TP1(Test Point Pad Large)
+Added Component: Designator=TP2(Test Point Pad Large)
+Added Pin To Net: NetName=UCB0_MISO/SCL Pin=TP1-1
+Added Pin To Net: NetName=UCB0_MOSI/SDA Pin=TP2-1
+Added Member To Class: ClassName=Payload Member=Component J11 0530470310
+Added Member To Class: ClassName=Payload Member=Component TP1 Test Point
+Added Member To Class: ClassName=Payload Member=Component TP2 Test Point

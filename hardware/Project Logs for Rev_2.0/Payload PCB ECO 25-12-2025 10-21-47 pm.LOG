@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=MOTOR_PWM Pin=U1-22
+Added Pin To Net: NetName=MOTOR_PWM Pin=U1-17

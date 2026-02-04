@@ -1,0 +1,2 @@
+Change Component Footprint: Designator=TP1 Old Footprint=Test Point Pad Large New Footprint=Test Point Pad Medium
+Change Component Footprint: Designator=TP2 Old Footprint=Test Point Via New Footprint=Test Point Pad Medium

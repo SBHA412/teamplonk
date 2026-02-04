@@ -1,0 +1,3 @@
+Change Component Footprint: Designator=U1 Old Footprint=MSP4302355TPT New Footprint=PT0048A_N
+Change Net Name : Old Net Name=UCB0_CLK New Net Name=GPIO_1.1
+Change Net Name : Old Net Name=UCB0_STE New Net Name=GPIO_1.0

@@ -1,0 +1,20 @@
+Removed Pin From Net: NetName=UCA1_STE Pin=B4-1
+Removed Member From Class: ClassName=Payload Member=B4
+Change component parameters: Designator = "C3" ("C3"); Footprint = "CAPACITOR_0805_2012M-70N"; UniqueID = "\UQAEJDBT" ("\UQAEJDBT")
+Change component parameters (AddParameter): Name = "Capacitance at Rated Voltage"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Rated Voltage"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1 Part No."; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 2"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 2 Part No."; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temp Range"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Coefficient"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Tolerance"; Value = "?%"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "10n"; VariantName = "[No Variations]"
+Added Component: Designator=B1(Solder Bridge Chevron 0402 Closed)
+Add component (AddParameter): Name = "DEBUG"; Value = "DEBUG"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=UCA1_TX/MOSI Pin=B1-1
+Added Pin To Net: NetName=NetB1_2 Pin=B1-2
+Added Pin To Net: NetName=GND Pin=J10-4
+Added Member To Class: ClassName=Payload Member=Component B1 Solder Jumper Normally Closed

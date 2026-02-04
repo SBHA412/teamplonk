@@ -1,0 +1,10 @@
+Output: Bill of Materials
+Type  : BOM
+From  : Project [Rev_2.0.PrjPcb]
+   Generated File[Bill of Materials-Rev_2.0.xlsx]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 7:51:44 pm On 26/12/2025

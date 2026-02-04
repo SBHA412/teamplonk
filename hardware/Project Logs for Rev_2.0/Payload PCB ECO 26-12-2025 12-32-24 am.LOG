@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=+3V3 Pin=R4-2
+Added Pin To Net: NetName=LED_RED Pin=R4-2
+Added Pin To Net: NetName=LED_RED Pin=U1-27
+Added Net: Name=LED_RED
+Added Rule: Name=Schematic Supply Nets_3

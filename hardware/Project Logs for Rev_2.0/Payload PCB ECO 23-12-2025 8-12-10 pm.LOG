@@ -1,0 +1,19 @@
+Change Component Footprint: Designator=B1 Old Footprint=Solder Bridge Closed 0201 New Footprint=Solder Bridge Chevron 0402 Closed
+Change Component Footprint: Designator=B2 Old Footprint=Solder Bridge Closed 0201 New Footprint=Solder Bridge Chevron 0402 Closed
+Change Component Footprint: Designator=B3 Old Footprint=Solder Bridge Open 0201 New Footprint=Solder Bridge Chevron 0402 Open
+Change Component Footprint: Designator=B4 Old Footprint=Solder Bridge Open 0201 New Footprint=Solder Bridge Chevron 0402 Open
+Add Pin To Net: Unknown Pin: Pin C3-1
+Add Pin To Net: Unknown Pin: Pin C3-2
+Add Pin To Net: Unknown Pin: Pin C4-1
+Add Pin To Net: Unknown Pin: Pin C4-2
+Add Pin To Net: Unknown Pin: Pin C5-1
+Add Pin To Net: Unknown Pin: Pin C5-2
+Add Pin To Net: Unknown Pin: Pin C6-1
+Add Pin To Net: Unknown Pin: Pin C6-2
+Add Pin To Net: Unknown Pin: Pin C7-1
+Add Pin To Net: Unknown Pin: Pin C7-2
+Add Class Member: Failed to add class member : Component C3 10n
+Add Class Member: Failed to add class member : Component C4 2u2
+Add Class Member: Failed to add class member : Component C5 100n
+Add Class Member: Failed to add class member : Component C6 10n
+Add Class Member: Failed to add class member : Component C7 100n

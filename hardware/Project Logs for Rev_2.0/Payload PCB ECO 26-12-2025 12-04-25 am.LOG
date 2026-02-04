@@ -1,0 +1,6 @@
+Added Component: Designator=TP1(Test Point Hole)
+Added Component: Designator=TP2(Test Point Via)
+Added Pin To Net: NetName=UCB0_MISO/SCL Pin=TP1-1
+Added Pin To Net: NetName=UCB0_MOSI/SDA Pin=TP2-1
+Added Member To Class: ClassName=Payload Member=Component TP1 Test Point
+Added Member To Class: ClassName=Payload Member=Component TP2 Test Point

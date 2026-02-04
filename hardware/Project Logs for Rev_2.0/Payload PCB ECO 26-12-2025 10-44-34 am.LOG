@@ -1,0 +1,30 @@
+Added Component: Designator=J12(MOLEX_0530470510)
+Add component (AddParameter): Name = "APSS Standard Part"; Value = "APSS Standard"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF Part No."; Value = "0530470510"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Type"; Value = "Through-hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Orientation"; Value = "Straight"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pins"; Value = "5"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pitch"; Value = "1.25mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digikey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1 Part No."; Value = "WM1734-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 2"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 2 Part No."; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=J12-1
+Added Pin To Net: NetName=GPIO_6.1 Pin=J12-2
+Added Pin To Net: NetName=GPIO_6.1 Pin=U1-21
+Added Net: Name=GPIO_6.1
+Added Pin To Net: NetName=GPIO_6.2 Pin=J12-3
+Added Pin To Net: NetName=GPIO_6.2 Pin=U1-20
+Added Net: Name=GPIO_6.2
+Added Pin To Net: NetName=GPIO_6.3 Pin=J12-4
+Added Pin To Net: NetName=GPIO_6.3 Pin=U1-19
+Added Net: Name=GPIO_6.3
+Added Pin To Net: NetName=GPIO_6.4 Pin=J12-5
+Added Pin To Net: NetName=GPIO_6.4 Pin=U1-18
+Added Net: Name=GPIO_6.4
+Added Member To Class: ClassName=Payload Member=Component D1 LTST-C190 Series
+Added Member To Class: ClassName=Payload Member=Component J11 0530470310
+Added Member To Class: ClassName=Payload Member=Component J12 0530470510
+Added Member To Class: ClassName=Payload Member=Component R4 150R
+Added Member To Class: ClassName=Payload Member=Component TP1 Test Point
+Added Member To Class: ClassName=Payload Member=Component TP2 Test Point

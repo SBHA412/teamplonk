@@ -1,0 +1,12 @@
+Added Component: Designator=TP3(Test Point Pad Medium)
+Added Component: Designator=TP4(Test Point Pad Medium)
+Added Component: Designator=TP5(Test Point Pad Medium)
+Added Component: Designator=TP6(Test Point Pad Medium)
+Added Pin To Net: NetName=UCB1_CLK Pin=TP3-1
+Added Pin To Net: NetName=UCB1_MOSI/SDA Pin=TP4-1
+Added Pin To Net: NetName=UCB1_MISO/SCL Pin=TP5-1
+Added Pin To Net: NetName=UCB1_CS Pin=TP6-1
+Added Member To Class: ClassName=Payload Member=Component TP3 Test Point
+Added Member To Class: ClassName=Payload Member=Component TP4 Test Point
+Added Member To Class: ClassName=Payload Member=Component TP5 Test Point
+Added Member To Class: ClassName=Payload Member=Component TP6 Test Point
